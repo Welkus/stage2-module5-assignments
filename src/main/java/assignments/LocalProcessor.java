@@ -18,8 +18,8 @@ public class LocalProcessor {
     private Long period = 10000000000000L;
     protected String ProcessorVersion;
     private Integer valueofCheap;
-    Scanner informationscanner;
-    static LinkedList<String> stringArrayList = new LinkedList<>();
+    private Scanner informationscanner;
+   private static LinkedList<String> stringArrayList = new LinkedList<>();
 
     public LocalProcessor(String processorName, Long period, String processorVersion, Integer valueOfCheap,
                           Scanner informationscanner, LinkedList<String> stringArrayList) {
@@ -34,6 +34,54 @@ public class LocalProcessor {
     public LocalProcessor() {
     }
 
+    public String getProcessorName() {
+        return processorName;
+    }
+
+    public void setProcessorName(String processorName) {
+        this.processorName = processorName;
+    }
+
+    public Long getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Long period) {
+        this.period = period;
+    }
+
+    public String getProcessorVersion() {
+        return ProcessorVersion;
+    }
+
+    public void setProcessorVersion(String processorVersion) {
+        ProcessorVersion = processorVersion;
+    }
+
+    public Integer getValueofCheap() {
+        return valueofCheap;
+    }
+
+    public void setValueofCheap(Integer valueofCheap) {
+        this.valueofCheap = valueofCheap;
+    }
+
+    public Scanner getInformationscanner() {
+        return informationscanner;
+    }
+
+    public void setInformationscanner(Scanner informationscanner) {
+        this.informationscanner = informationscanner;
+    }
+
+    public static LinkedList<String> getStringArrayList() {
+        return stringArrayList;
+    }
+
+    public static void setStringArrayList(LinkedList<String> stringArrayList) {
+        LocalProcessor.stringArrayList = stringArrayList;
+    }
+
     @ListIteratorAnnotation
     public void listiterator(LinkedList<String> stringList) {
         stringArrayList = new LinkedList<>(stringList);
@@ -43,7 +91,7 @@ public class LocalProcessor {
     }
 
     @FullNameProcessorGeneratorAnnotation
-    public String fullnameProcessorgenerator(LinkedList<String> stringList) {
+    public String fullNameProcessorGenerator(LinkedList<String> stringList) {
         for (int i = 0; i < stringArrayList.size(); i++) {
             processorName+=stringList.get(i)+' ';
         }
@@ -51,7 +99,7 @@ public class LocalProcessor {
     }
 
     @ReadFullProcessorNameAnnotation
-    public void readfullprocessorname(File file) throws FileNotFoundException {
+    public void readFullProcessorName(File file) throws FileNotFoundException {
             informationscanner = new Scanner(file);
             while (informationscanner.hasNext()) {
                 ProcessorVersion+= informationscanner.nextLine();
