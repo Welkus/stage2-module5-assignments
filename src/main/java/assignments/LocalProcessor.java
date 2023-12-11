@@ -3,6 +3,7 @@ package assignments;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import java.lang.StringBuilder;
 
@@ -20,7 +21,7 @@ public class LocalProcessor{
     protected String processorVersion;
     private Integer valueOfCheap;
     private Scanner informationScanner;
-    private static LinkedList<String> stringArrayList;
+    private static List<String> stringArrayList;
 
     public LocalProcessor(String processorName, Long period, String processorVersion, Integer valueOfCheap,
                           Scanner informationscanner, LinkedList<String> stringArrayList) {
