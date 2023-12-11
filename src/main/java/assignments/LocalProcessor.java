@@ -17,47 +17,50 @@ public class LocalProcessor {
     private String processorName;
     private Long period = 10_000_000_000_000L;
     protected String processorVersion;
-    private Integer valueofCheap;
-    private Scanner informationscanner;
-   private static LinkedList<String> stringArrayList;
+    private Integer valueOfCheap;
+    private Scanner informationScanner;
+    private static LinkedList<String> stringArrayList;
 
     public LocalProcessor(String processorName, Long period, String processorVersion, Integer valueOfCheap,
                           Scanner informationscanner, LinkedList<String> stringArrayList) {
         this.processorName = processorName;
         this.period = period;
         this.processorVersion = processorVersion;
-        this.valueofCheap = valueOfCheap;
-        this.informationscanner = informationscanner;
-        this.stringArrayList = stringArrayList;
+        this.valueOfCheap = valueOfCheap;
+        this.informationScanner = informationscanner;
+        LocalProcessor.stringArrayList = stringArrayList;
     }
 
     public LocalProcessor() {
-        this.stringArrayList = new LinkedList<>();
     }
-
 
     @ListIteratorAnnotation
     public void listIterator(LinkedList<String> stringList) {
         stringArrayList = new LinkedList<>(stringList);
-        for (int i = 0; i < period; i++) {
-            System.out.println(stringArrayList.get(i).hashCode());
-        }
+        stringArrayList.forEach(i -> System.out.println(i.hashCode()));
+
     }
 
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(LinkedList<String> stringList) {
-        for (int i = 0; i < stringArrayList.size(); i++) {
-            processorName+=stringList.get(i)+' ';
-        }
-        return processorName;
+        StringBuilder sb = new StringBuilder();
+        stringArrayList.forEach(s -> sb.append(" ").append(s));
+
+        return sb.toString();
     }
 
     @ReadFullProcessorNameAnnotation
     public void readFullProcessorName(File file) throws FileNotFoundException {
-            informationscanner = new Scanner(file);
-            while (informationscanner.hasNext()) {
-                processorVersion += informationscanner.nextLine();
+        StringBuilder sb = new StringBuilder();
+        try (Scanner localScan = new Scanner(file))
+        {
+            while (localScan.hasNext()) {
+                sb.append(localScan.nextLine());
             }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found " +e.getMessage());
+        }
 
     }
 }
