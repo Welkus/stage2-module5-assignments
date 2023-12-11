@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.lang.StringBuilder;
 
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
 import assignments.annotations.ListIteratorAnnotation;
@@ -13,7 +14,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LocalProcessor {
+public class LocalProcessor{
     private String processorName;
     private Long period = 10_000_000_000_000L;
     protected String processorVersion;
@@ -59,6 +60,9 @@ public class LocalProcessor {
                 sb.append(localScan.nextLine());
             }
             processorVersion = sb.toString();
+        }
+        catch (IllegalStateException e){
+            System.out.println("File is null: " + e);
         }
         catch (FileNotFoundException e){
             System.out.println("File not found " +e.getMessage());
