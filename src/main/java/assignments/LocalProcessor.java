@@ -15,11 +15,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LocalProcessor{
+public class LocalProcessor {
     private String processorName;
-    private Long period = 10_000_000_000_000L;
+    private long period = 10_000_000_000_000L;
     protected String processorVersion;
-    private Integer valueOfCheap;
+    private int valueOfCheap;
     private Scanner informationScanner;
     private static List<String> stringArrayList;
 
@@ -38,35 +38,38 @@ public class LocalProcessor{
 
     @ListIteratorAnnotation
     public void listIterator(LinkedList<String> stringList) {
-        stringArrayList = new LinkedList<>(stringList);
-        stringArrayList.forEach(i -> System.out.println(i.hashCode()));
+        if (stringList != null) {
+            stringArrayList = new LinkedList<>(stringList);
+        } else {
+            stringArrayList = new LinkedList<>();
+        }
 
+        stringArrayList.forEach(i -> System.out.println(i.hashCode()));
     }
 
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(LinkedList<String> stringList) {
         StringBuilder sb = new StringBuilder();
-        stringArrayList.forEach(s -> sb.append(s).append(" "));
-        processorName = sb.toString();
-        return sb.toString();
+       if (stringList != null){
+           stringArrayList.forEach(s -> sb.append(s).append(" "));
+           processorName = sb.toString();
+           return sb.toString();
+       }
+       return "";
+
     }
 
     @ReadFullProcessorNameAnnotation
     public void readFullProcessorName(File file) throws FileNotFoundException {
         StringBuilder sb = new StringBuilder();
 
-        try (Scanner localScan = new Scanner(file))
-        {
+        try (Scanner localScan = new Scanner(file)) {
             while (localScan.hasNext()) {
                 sb.append(localScan.nextLine());
             }
             processorVersion = sb.toString();
-        }
-        catch (IllegalStateException e){
-            System.out.println("File is null: " + e);
-        }
-        catch (FileNotFoundException e){
-            System.out.println("File not found " +e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found " + e.getMessage());
         }
 
     }
