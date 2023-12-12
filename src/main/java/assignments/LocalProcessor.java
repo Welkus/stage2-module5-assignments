@@ -66,20 +66,23 @@ public class LocalProcessor {
     }
 
     @ReadFullProcessorNameAnnotation
-    public void readFullProcessorName(File file) throws FileNotFoundException {
+    public void readFullProcessorName(File file) {
         if (this.informationScanner == null) {
             throw new IllegalStateException("Scanner has not been initialized");
         }
         sb = new StringBuilder();
+        try{
+            informationScanner = new Scanner(file);
 
-        try (Scanner localScan = new Scanner(file)) {
-            while (localScan.hasNext()) {
-                sb.append(localScan.nextLine());
+            while (informationScanner.hasNext()) {
+                sb.append(informationScanner.nextLine());
             }
-            processorVersion = sb.toString();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found " + e.getMessage());
+        } catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
+        } finally {
+            informationScanner.close();
         }
 
+        processorVersion = sb.toString();
     }
 }
